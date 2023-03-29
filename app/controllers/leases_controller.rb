@@ -5,6 +5,12 @@ class LeasesController < ApplicationController
     render json: leases
   end 
 
+  def create 
+    lease = Lease.create(lease_params)
+    render json: lease, status: :created
+
+  end 
+
   def destroy
     lease = Lease.find_by(id: params[:id])
     if lease
@@ -15,6 +21,10 @@ class LeasesController < ApplicationController
     end 
   end 
 
+  private
 
+  def lease_params
+    params.permit(:id, :rent, :tenant_id, :apartment_id)
+  end 
 
 end
