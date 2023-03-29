@@ -4,4 +4,17 @@ class LeasesController < ApplicationController
     leases = Lease.all
     render json: leases
   end 
+
+  def destroy
+    lease = Lease.find_by(id: params[:id])
+    if lease
+    lease.destroy
+    render json: {}, status: :ok
+    else 
+      render json: { error: "Lease Not Found" }, status: :not_found
+    end 
+  end 
+
+
+
 end
